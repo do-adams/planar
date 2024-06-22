@@ -1,23 +1,33 @@
+---
+const faq = [
+  {
+    question: `Is the personal account really free?`,
+    answer: `Yes! We don’t require a credit card to sign up, it's completely free.`,
+  },
+  {
+    question: `Can I use SECRETPLAN for my company?`,
+    answer: `Absolutely! SECRETPLAN is perfect for companies of all sizes.`,
+  },
+]
+---
+
 <div class="max-w-2xl px-6 mx-auto mt-20 text-center lg:max-w-7xl lg:px-8">
   <p class="mt-2 text-4xl font-bold tracking-tight sm:text-5xl">
     Frequently asked questions
   </p>
 
   <div class="mt-10 space-y-8">
-    <div>
-      <h2 class="text-lg font-bold">Is the personal account really free?</h2>
-      <p class="mt-3">
-        Yes! We don’t require a credit card to sign up, it's completely free.
-      </p>
-    </div>
-    <div>
-      <h2 class="text-base font-semibold">
-        Can I use SECRETPLAN for my company?
-      </h2>
-
-      <p class="mt-3">
-        Absolutely! SECRETPLAN is perfect for companies of all sizes.
-      </p>
-    </div>
+    {
+      faq.map((f, i) => (
+        <div>
+          {i < 1 ? (
+            <h2 class="text-lg font-bold">{f.question}</h2>
+          ) : (
+            <h2 class="text-base font-semibold">{f.question}</h2>
+          )}
+          <p class="mt-3">{f.answer}</p>
+        </div>
+      ))
+    }
   </div>
 </div>
