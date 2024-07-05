@@ -14,7 +14,7 @@ const { title = 'Secretplan' } = Astro.props
 
       declare global {
         interface Window {
-          htmx: any
+          htmx: typeof htmx
         }
       }
 
