@@ -22,6 +22,12 @@ const { title = 'Secretplan' } = Astro.props
 
       htmx.process(document.body)
     </script>
+    <style>
+      dialog::backdrop {
+        background-color: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(3px);
+      }
+    </style>
   </head>
 
   <body>
