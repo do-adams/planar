@@ -53,6 +53,10 @@ export async function getProject(id: string) {
   return project
 }
 
+export async function deleteProject(id: string) {
+  await pb.collection('projects').delete(id)
+}
+
 export async function addTask(project_id: string, text: string) {
   const newTask = await pb.collection('tasks').create({
     project: project_id,
