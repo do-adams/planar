@@ -16,7 +16,7 @@ const tasks = await getTasks(project_id)
     tasks.map((task) => (
       <li>
         <div class="flex justify-between">
-          <div>{task.text}</div>
+          <div class="text-zinc-800 dark:text-white">{task.text}</div>
           <div>
             <DeleteTaskButton task={task} />
           </div>
