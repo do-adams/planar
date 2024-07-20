@@ -3,8 +3,13 @@ import type {
   ProjectsResponse,
   ProjectsRecord,
   TasksRecord,
+  TasksResponse,
 } from '@src/data/pocketbase-types'
 import PocketBase from 'pocketbase'
+
+type TexpandProject = {
+  project?: ProjectsResponse
+}
 
 export const pb = new PocketBase(
   import.meta.env.POCKETBASE_URL
@@ -72,7 +77,10 @@ export async function addTask(project_id: string, text: string) {
   return newTask
 }
 
-export async function getTasks({ project_id = null, done = false }) {
+export async function getTasks({
+  project_id = null,
+  done = false,
+}): Promise<TasksResponse<TexpandProject>[]> {
   const options = {
     filter: '',
   }
@@ -82,7 +90,9 @@ export async function getTasks({ project_id = null, done = false }) {
 
   options.filter = filter
 
-  const tasks = await pb.collection('tasks').getFullList(options)
+  let tasks: TasksResponse<TexpandProject>[] = []
+
+  tasks = await pb.collection('tasks').getFullList(options)
 
   return tasks
 }
@@ -93,4 +103,20 @@ export async function updateTask(id: string, data: TasksRecord) {
 
 export async function deleteTask(id: string) {
   await pb.collection('tasks').delete(id)
+}
+
+export async function getStarredTasks(): Promise<
+  TasksResponse<TexpandProject>[]
+> {
+  const options = {
+    sort: '-starred_on',
+    filter: 'starred = true && completed = false',
+    expand: 'project',
+  }
+
+  let tasks: TasksResponse<TexpandProject>[] = []
+
+  tasks = await pb.collection('tasks').getFullList(options)
+
+  return tasks
 }
