@@ -2,6 +2,7 @@ import type {
   TypedPocketBase,
   ProjectsResponse,
   ProjectsRecord,
+  TasksRecord,
 } from '@src/data/pocketbase-types'
 import PocketBase from 'pocketbase'
 
@@ -79,6 +80,10 @@ export async function getTasks(project_id: string) {
   const tasks = await pb.collection('tasks').getFullList(options)
 
   return tasks
+}
+
+export async function updateTask(id: string, data: TasksRecord) {
+  await pb.collection('tasks').update(id, data)
 }
 
 export async function deleteTask(id: string) {
